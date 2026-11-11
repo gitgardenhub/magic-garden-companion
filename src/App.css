@@ -617,4 +617,41 @@ footer {
   border: none;
   border-top: 1px solid #ecd8e7;
   margin: 24px 0;
+}/* LIME GREEN SITE FRAME */
+
+body {
+  border: 14px solid #B7D957;
+  min-height: 100vh;
+  box-sizing: border-box;
+}/* HOMEPAGE NAVIGATION BUTTONS */
+
+.hero-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.hero-buttons .primary-button {
+  width: 280px;
+  max-width: 100%;
+}/* HOME NAVIGATION BUTTON */
+
+.home-button {
+  background: #fff0f8;
+  color: #9b6287;
+  border: 1px solid #e9c9dc;
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.home-button:hover {
+  background: #fce1f0;
+  transform: translateY(-2px);
 }
