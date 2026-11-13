@@ -348,6 +348,36 @@ function CropCalculator() {
             <h2>💰 Your Harvest Details</h2>
 
 
+            {/* FINAL SELLING PRICE */}
+
+            <h3>✨ Final Selling Price</h3>
+
+            {priceResult?.valid ? (
+
+              <>
+
+                <p className="result-value">
+                  {formatPrice(priceResult.price)} Coins
+                </p>
+
+                <small>
+                  Base price × size multiplier × mutation multiplier.
+                </small>
+
+              </>
+
+            ) : (
+
+              <p className="result-value">
+                Unable to calculate
+              </p>
+
+            )}
+
+
+            <hr />
+
+
             <p>
               <strong>Selected Crop:</strong>{' '}
               {crop.name}
@@ -367,6 +397,7 @@ function CropCalculator() {
 
 
             <hr />
+
 
             {/* SIZE CALCULATION */}
 
@@ -408,6 +439,7 @@ function CropCalculator() {
 
             <hr />
 
+
             {/* HARVEST INFORMATION */}
 
             <h3>🌾 Harvest Information</h3>
@@ -447,6 +479,7 @@ function CropCalculator() {
 
 
             <hr />
+
 
             {/* DATA VERIFICATION */}
 
@@ -494,6 +527,7 @@ function CropCalculator() {
 
 
             <hr />
+
 
             {/* MUTATION CALCULATION */}
 
@@ -551,34 +585,6 @@ function CropCalculator() {
 
             <hr />
 
-            {/* FINAL SELLING PRICE */}
-
-            <h3>✨ Final Selling Price</h3>
-
-            {priceResult?.valid ? (
-
-              <>
-
-                <p className="result-value">
-                  {formatPrice(priceResult.price)} Coins
-                </p>
-
-                <small>
-                  Base price × size multiplier × mutation multiplier.
-                </small>
-
-              </>
-
-            ) : (
-
-              <p className="result-value">
-                Unable to calculate
-              </p>
-
-            )}
-
-
-            <hr />
 
             {/* TOTAL HARVEST VALUE */}
 
