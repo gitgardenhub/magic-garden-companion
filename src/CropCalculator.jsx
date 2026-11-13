@@ -1,7 +1,15 @@
 import { useState } from 'react'
 import { crops } from './crops'
 
-// Available mutations
+import {
+  calculateMutationMultiplier,
+  calculateSizeMultiplier,
+  calculateCropPrice,
+} from './cropCalculations'
+
+
+// AVAILABLE MUTATIONS
+
 const mutationOptions = [
   'Wet',
   'Chilled',
@@ -16,7 +24,9 @@ const mutationOptions = [
   'Rainbow',
 ]
 
-// Individual mutation reference multipliers
+
+// MUTATION REFERENCE VALUES
+
 const mutationMultipliers = {
   Wet: 2,
   Chilled: 2,
@@ -31,33 +41,65 @@ const mutationMultipliers = {
   Rainbow: 50,
 }
 
+
 function CropCalculator() {
+
   const [selectedCrop, setSelectedCrop] = useState('')
   const [size, setSize] = useState(50)
   const [selectedMutations, setSelectedMutations] = useState([])
 
-  const crop = crops.find((item) => item.id === selectedCrop)
 
-  // Toggle mutations
+  const crop = crops.find(
+    (item) => item.id === selectedCrop
+  )
+
+
+  // CALCULATIONS
+
+  const mutationResult =
+    calculateMutationMultiplier(selectedMutations)
+
+  const sizeResult = crop
+    ? calculateSizeMultiplier(crop, size)
+    : null
+
+  const priceResult = crop
+    ? calculateCropPrice(crop, size, selectedMutations)
+    : null
+
+
+  // TOGGLE MUTATIONS
+
   function toggleMutation(mutation) {
+
     setSelectedMutations((current) =>
       current.includes(mutation)
         ? current.filter((item) => item !== mutation)
         : [...current, mutation]
     )
+
   }
 
-  // Format prices
+
+  // FORMAT PRICES
+
   function formatPrice(value) {
+
     if (value == null || !Number.isFinite(Number(value))) {
       return 'Unknown'
     }
 
-    return Number(value).toLocaleString('en-US')
+    return Number(value).toLocaleString('en-US', {
+      maximumFractionDigits: 2,
+    })
+
   }
 
-  // Format growth time stored in seconds
+
+  // FORMAT TIME
+
   function formatTime(seconds) {
+
     if (seconds == null || !Number.isFinite(Number(seconds))) {
       return 'Unknown'
     }
@@ -79,10 +121,14 @@ function CropCalculator() {
     if (minutes > 0) parts.push(String(minutes) + 'm')
 
     return parts.join(' ')
+
   }
 
-  // Format crops produced per harvest
+
+  // FORMAT HARVEST QUANTITY
+
   function formatHarvestQuantity(value) {
+
     if (value?.min == null) {
       return 'Unknown'
     }
@@ -92,10 +138,14 @@ function CropCalculator() {
     }
 
     return value.min
+
   }
 
-  // Format verification status
+
+  // FORMAT VERIFICATION STATUS
+
   function formatVerification(status) {
+
     if (status === 'verified') {
       return '✓ Verified'
     }
@@ -107,20 +157,28 @@ function CropCalculator() {
     }
 
     return '⚠ Needs Verification'
+
   }
 
-  // Sort crops alphabetically
+
+  // SORT CROPS ALPHABETICALLY
+
   const sortedCrops = [...crops].sort((a, b) =>
     a.name.localeCompare(b.name)
   )
 
+
   return (
+
     <div className="calculator-page">
 
       {/* PAGE HEADING */}
 
       <div className="database-heading">
-        <p className="eyebrow">MAKE EVERY HARVEST COUNT</p>
+
+        <p className="eyebrow">
+          MAKE EVERY HARVEST COUNT
+        </p>
 
         <h1>💰 Crop Value Calculator</h1>
 
@@ -128,7 +186,9 @@ function CropCalculator() {
           Discover what your crops are worth with different
           sizes and mutations.
         </p>
+
       </div>
+
 
       {/* CALCULATOR CARD */}
 
@@ -136,33 +196,48 @@ function CropCalculator() {
 
         <h2>🌱 Choose Your Crop</h2>
 
-        <label htmlFor="crop-select">Crop</label>
+
+        {/* CROP SELECTION */}
+
+        <label htmlFor="crop-select">
+          Crop
+        </label>
 
         <select
           id="crop-select"
           value={selectedCrop}
           onChange={(event) => setSelectedCrop(event.target.value)}
         >
-          <option value="">Select a crop...</option>
+
+          <option value="">
+            Select a crop...
+          </option>
 
           {sortedCrops.map((item) => (
+
             <option key={item.id} value={item.id}>
               {item.name}
             </option>
+
           ))}
+
         </select>
+
 
         {/* CROP SIZE */}
 
-        <label htmlFor="crop-size">Crop Size</label>
+        <label htmlFor="crop-size">
+          Crop Size (50–100)
+        </label>
 
         <input
           id="crop-size"
           type="number"
-          min="1"
+          min="50"
           max="100"
           value={size}
           onChange={(event) => {
+
             const value = event.target.value
 
             if (value === '') {
@@ -170,22 +245,34 @@ function CropCalculator() {
               return
             }
 
-            setSize(Math.min(100, Math.max(1, Number(value))))
+            setSize(
+              Math.min(100, Math.max(50, Number(value)))
+            )
+
           }}
           onBlur={() => {
+
             if (size === '' || !Number.isFinite(Number(size))) {
               setSize(50)
             }
+
           }}
         />
+
 
         {/* MUTATION SELECTION */}
 
         <h2>✨ Crop Mutations</h2>
 
         <div className="mutation-grid">
+
           {mutationOptions.map((mutation) => (
-            <label key={mutation} className="mutation-option">
+
+            <label
+              key={mutation}
+              className="mutation-option"
+            >
+
               <input
                 type="checkbox"
                 checked={selectedMutations.includes(mutation)}
@@ -193,13 +280,18 @@ function CropCalculator() {
               />
 
               {mutation}
+
             </label>
+
           ))}
+
         </div>
 
-        {/* SELECTED MUTATIONS SUMMARY */}
+
+        {/* SELECTED MUTATIONS */}
 
         <div className="selected-mutations">
+
           <strong>Selected Mutations:</strong>
 
           <p>
@@ -207,13 +299,16 @@ function CropCalculator() {
               ? selectedMutations.join(' + ')
               : 'No mutations selected'}
           </p>
+
         </div>
+
 
         {/* SELECTED CROP DETAILS */}
 
         <h2>🌷 Selected Crop</h2>
 
         {crop ? (
+
           <div className="selected-crop">
 
             <h3>{crop.name}</h3>
@@ -234,18 +329,24 @@ function CropCalculator() {
             </p>
 
           </div>
+
         ) : (
+
           <p className="calculator-placeholder">
             Choose a crop to see its details!
           </p>
+
         )}
+
 
         {/* RESULTS PANEL */}
 
         {crop && (
+
           <div className="calculator-results">
 
             <h2>💰 Your Harvest Details</h2>
+
 
             <p>
               <strong>Selected Crop:</strong>{' '}
@@ -264,10 +365,46 @@ function CropCalculator() {
                 : 'None'}
             </p>
 
-            <p>
-              <strong>Base Selling Price (Size 50):</strong>{' '}
-              {formatPrice(crop.baseSellPrice)}
-            </p>
+
+            <hr />
+
+            {/* SIZE CALCULATION */}
+
+            <h3>📏 Crop Size Calculation</h3>
+
+            {sizeResult?.valid ? (
+
+              <>
+
+                <p>
+                  <strong>Size Multiplier:</strong>{' '}
+                  {sizeResult.multiplier.toFixed(3)}×
+                </p>
+
+                {sizeResult.weightKg != null && (
+
+                  <p>
+                    <strong>Estimated Crop Weight:</strong>{' '}
+                    {sizeResult.weightKg.toFixed(4)} kg
+                  </p>
+
+                )}
+
+                <small>
+                  Size scaling is calculated from the crop's
+                  base and maximum weight.
+                </small>
+
+              </>
+
+            ) : (
+
+              <p>
+                Crop size information unavailable.
+              </p>
+
+            )}
+
 
             <hr />
 
@@ -308,6 +445,7 @@ function CropCalculator() {
                 : 'Unknown'}
             </p>
 
+
             <hr />
 
             {/* DATA VERIFICATION */}
@@ -331,60 +469,114 @@ function CropCalculator() {
               {crop.verification?.lastVerified || 'Unknown'}
             </p>
 
+
             {/* DATA ISSUES */}
 
             {crop.dataIssues?.length > 0 && (
+
               <>
+
                 <hr />
 
                 <h3>⚠️ Data Notes</h3>
 
                 {crop.dataIssues.map((issue, index) => (
+
                   <p key={index}>
                     {issue}
                   </p>
+
                 ))}
+
               </>
+
             )}
+
+
+            <hr />
+
+            {/* MUTATION CALCULATION */}
+
+            <h3>✨ Mutation Calculation</h3>
+
+            {mutationResult.valid ? (
+
+              <p>
+                <strong>Mutation Multiplier:</strong>{' '}
+                {mutationResult.multiplier}×
+              </p>
+
+            ) : (
+
+              <>
+
+                <p>⚠️ Invalid mutation combination:</p>
+
+                {mutationResult.errors.map((error, index) => (
+
+                  <p key={index}>
+                    {error}
+                  </p>
+
+                ))}
+
+              </>
+
+            )}
+
 
             {/* INDIVIDUAL MUTATION REFERENCES */}
 
             {selectedMutations.length > 0 && (
+
               <>
+
                 <hr />
 
-                <h3>✨ Mutation Reference Values</h3>
+                <h3>Mutation Reference Values</h3>
 
                 {selectedMutations.map((mutation) => (
+
                   <p key={mutation}>
                     {mutation}:{' '}
                     {mutationMultipliers[mutation]}×
                   </p>
+
                 ))}
 
-                <small>
-                  These are individual reference multipliers.
-                  Combined mutation stacking has not yet been
-                  calculated or verified.
-                </small>
               </>
+
             )}
+
 
             <hr />
 
-            {/* SELLING PRICE */}
+            {/* FINAL SELLING PRICE */}
 
             <h3>✨ Final Selling Price</h3>
 
-            <p className="result-value">
-              Awaiting verified mutation calculations
-            </p>
+            {priceResult?.valid ? (
 
-            <small>
-              Final selling price will be calculated once
-              mutation stacking rules and size scaling
-              have been verified.
-            </small>
+              <>
+
+                <p className="result-value">
+                  {formatPrice(priceResult.price)} Coins
+                </p>
+
+                <small>
+                  Base price × size multiplier × mutation multiplier.
+                </small>
+
+              </>
+
+            ) : (
+
+              <p className="result-value">
+                Unable to calculate
+              </p>
+
+            )}
+
 
             <hr />
 
@@ -393,21 +585,24 @@ function CropCalculator() {
             <h3>🌸 Total Harvest Value</h3>
 
             <p className="result-value">
-              Awaiting verified crop data
+              Awaiting verified harvest quantities
             </p>
 
             <small>
               This will calculate the combined value of all
-              crops produced in one harvest, including size
-              and mutations.
+              crops produced in one harvest.
             </small>
 
           </div>
+
         )}
 
       </div>
+
     </div>
+
   )
+
 }
 
 export default CropCalculator
