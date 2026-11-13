@@ -192,6 +192,31 @@ function normalizeSlots(value) {
     max: value,
     maxWithBoost: value,
   };
+}function normalizeCropsPerHarvest(harvestType, slotValues) {
+
+  // Single-harvest plants produce one crop.
+  if (harvestType === "Single") {
+    return { min: 1, max: 1 };
+  }
+
+  // Unknown quantities stay unknown.
+  if (slotValues == null) {
+    return { min: null, max: null };
+  }
+
+  // Variable quantities use the normal minimum and maximum.
+  if (Array.isArray(slotValues)) {
+    return {
+      min: slotValues[0],
+      max: slotValues[1],
+    };
+  }
+
+  // Fixed quantities use the same minimum and maximum.
+  return {
+    min: slotValues,
+    max: slotValues,
+  };
 }
 
 export const crops = rawCrops.map(
@@ -232,10 +257,7 @@ export const crops = rawCrops.map(
 
       // Slots and cropsPerHarvest are different concepts.
       // Do not infer one from the other.
-      cropsPerHarvest: {
-        min: null,
-        max: null,
-      },
+      cropsPerHarvest: normalizeCropsPerHarvest(harvestType, slotValues),
 
       harvestInterval: null,
 

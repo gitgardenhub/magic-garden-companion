@@ -66,7 +66,17 @@ function CropCalculator() {
   const priceResult = crop
     ? calculateCropPrice(crop, size, selectedMutations)
     : null
+const harvestQuantity = crop?.cropsPerHarvest
 
+const totalHarvestValue =
+  priceResult?.valid &&
+  harvestQuantity?.min != null &&
+  harvestQuantity?.max != null
+    ? {
+        min: priceResult.price * harvestQuantity.min,
+        max: priceResult.price * harvestQuantity.max,
+      }
+    : null
 
   // TOGGLE MUTATIONS
 
@@ -231,33 +241,24 @@ function CropCalculator() {
         </label>
 
         <input
-          id="crop-size"
-          type="number"
-          min="50"
-          max="100"
-          value={size}
-          onChange={(event) => {
+  id="crop-size"
+  type="number"
+  min="50"
+  max="100"
+  value={size}
+  onChange={(event) => {
+    setSize(event.target.value)
+  }}
+  onBlur={() => {
+    const numericSize = Number(size)
 
-            const value = event.target.value
-
-            if (value === '') {
-              setSize('')
-              return
-            }
-
-            setSize(
-              Math.min(100, Math.max(50, Number(value)))
-            )
-
-          }}
-          onBlur={() => {
-
-            if (size === '' || !Number.isFinite(Number(size))) {
-              setSize(50)
-            }
-
-          }}
-        />
+    if (size === '' || !Number.isFinite(numericSize)) {
+      setSize(50)
+    } else {
+      setSize(Math.min(100, Math.max(50, numericSize)))
+    }
+  }}
+/>
 
 
         {/* MUTATION SELECTION */}
@@ -588,17 +589,36 @@ function CropCalculator() {
 
             {/* TOTAL HARVEST VALUE */}
 
-            <h3>🌸 Total Harvest Value</h3>
+<h3>🌸 Total Harvest Value</h3>
 
-            <p className="result-value">
-              Awaiting verified harvest quantities
-            </p>
+{totalHarvestValue ? (
 
-            <small>
-              This will calculate the combined value of all
-              crops produced in one harvest.
-            </small>
+  <>
 
+    <p className="result-value">
+      {formatPrice(totalHarvestValue.min)}
+
+      {totalHarvestValue.max !== totalHarvestValue.min
+        ? ' – ' + formatPrice(totalHarvestValue.max)
+        : ''}
+
+      {' '}Coins
+    </p>
+
+    <small>
+      Based on {formatHarvestQuantity(harvestQuantity)}
+      {' '}crops per harvest.
+    </small>
+
+  </>
+
+) : (
+
+  <p className="result-value">
+    Awaiting verified harvest quantities
+  </p>
+
+)}
           </div>
 
         )}
