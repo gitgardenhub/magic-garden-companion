@@ -1,0 +1,83 @@
+.pet-abilities-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 35px 25px;
+  color: #59445f;
+}
+
+.pet-abilities-page h1 {
+  color: #a64d85;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.pet-abilities-page > p {
+  text-align: center;
+  color: #76627b;
+  margin-bottom: 35px;
+}
+
+.pet-abilities-page h2 {
+  color: #a64d85;
+  font-size: 1.7rem;
+  margin-bottom: 18px;
+}
+
+.pet-abilities-page h3 {
+  color: #9b4c83;
+  font-size: 1.4rem;
+  margin-top: 25px;
+}
+
+.pet-abilities-page h4 {
+  color: #765080;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.pet-abilities-page select {
+  display: block;
+  width: 100%;
+  max-width: 450px;
+  padding: 14px 16px;
+  margin: 15px auto 25px;
+  border: 2px solid #e6b8d6;
+  border-radius: 12px;
+  background-color: #fffafd;
+  color: #59445f;
+  font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+  text-align: center;
+  text-align-last: center;
+}
+.pet-abilities-page select:focus {
+  border-color: #c77eae;
+  box-shadow: 0 0 0 3px rgba(199, 126, 174, 0.15);
+}
+
+.pet-abilities-page select option {
+  background-color: #fffafd;
+  color: #59445f;
+}
+
+.pet-abilities-page article {
+  background: #fffafd;
+  border: 1px solid #efd7e8;
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin: 12px 0;
+  box-shadow: 0 3px 10px rgba(120, 75, 110, 0.06);
+}
+
+.pet-abilities-page article p {
+  color: #69596d;
+  line-height: 1.5;
+}
+
+.pet-abilities-page hr {
+  border: none;
+  border-top: 2px solid #f0d9e9;
+  margin: 40px 0;
+}

@@ -665,3 +665,277 @@ body {
   overflow-wrap: normal;
   font-size: 14px;
 }
+/* ===== PET FEEDING PLANNER ===== */
+
+.pet-planner-page {
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 65px 24px 100px;
+}
+
+.pet-planner-heading {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.pet-planner-heading h1 {
+  font-family: 'Playfair Display', serif;
+  color: #574052;
+  font-size: clamp(34px, 5vw, 52px);
+  margin: 15px 0;
+}
+
+.pet-planner-heading > p:last-child {
+  max-width: 600px;
+  margin: 0 auto;
+  color: #958594;
+  line-height: 1.7;
+}
+
+.pet-selection-card,
+.pet-food-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #f3dce9;
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 8px 30px rgba(190, 120, 160, 0.08);
+  margin-bottom: 30px;
+}
+
+.pet-selection-card h2,
+.pet-food-heading h2 {
+  font-family: 'Playfair Display', serif;
+  color: #a45f8b;
+  margin-top: 0;
+}
+
+.pet-selection-card > p,
+.pet-food-heading p {
+  color: #958594;
+  line-height: 1.7;
+}
+
+.pet-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 25px 0;
+}
+
+.pet-slot {
+  display: grid;
+  grid-template-columns: 75px 1fr 42px;
+  align-items: center;
+  gap: 12px;
+}
+
+.pet-slot label {
+  color: #76576d;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.pet-slot select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #e9c9dc;
+  border-radius: 12px;
+  background: #fffafd;
+  color: #594353;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.pet-slot select:focus {
+  border-color: #d58ab6;
+  box-shadow: 0 0 0 3px rgba(213, 138, 182, 0.15);
+}
+
+.remove-pet-button {
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  background: #fff0f5;
+  color: #bd648e;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.remove-pet-button:hover {
+  background: #f9dce9;
+}
+
+.add-pet-button {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  border: 2px dashed #dfa5c7;
+  border-radius: 14px;
+  background: #fff8fc;
+  color: #a45f8b;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-pet-button:hover {
+  background: #fceaf4;
+  border-color: #cb79a5;
+}
+
+.pet-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+.summary-box {
+  text-align: center;
+  padding: 22px 12px;
+  background: white;
+  border: 1px solid #f2dfeb;
+  border-radius: 18px;
+  box-shadow: 0 5px 18px #a76b8610;
+}
+
+.summary-box span {
+  display: block;
+  font-size: 25px;
+  margin-bottom: 8px;
+}
+
+.summary-box strong {
+  color: #a94f7e;
+  font-size: 28px;
+}
+
+.summary-box p {
+  color: #958594;
+  font-size: 12px;
+  margin: 6px 0 0;
+}
+
+.pet-food-heading {
+  margin-bottom: 25px;
+}
+
+.food-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.food-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #f0d8e7;
+  border-radius: 14px;
+  background: #fffafd;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.food-item:hover {
+  background: #fff3f9;
+  border-color: #dfa5c7;
+}
+
+.food-item input {
+  width: 19px;
+  height: 19px;
+  accent-color: #cf83ae;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.food-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+  flex: 1;
+}
+
+.food-info strong {
+  color: #a45f8b;
+}
+
+.food-info small {
+  color: #958594;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.food-status {
+  color: #b47b9b;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.food-available {
+  background: #f0f9f0;
+  border-color: #c8e4cc;
+}
+
+.food-available .food-status {
+  color: #548b61;
+}
+
+.pet-empty-state {
+  text-align: center;
+  padding: 55px 20px;
+  background: white;
+  border: 1px solid #f3dce9;
+  border-radius: 24px;
+  color: #958594;
+}
+
+.pet-empty-state span {
+  font-size: 45px;
+}
+
+.pet-empty-state h2 {
+  font-family: 'Playfair Display', serif;
+  color: #a45f8b;
+}
+
+.pet-empty-state p {
+  line-height: 1.7;
+}
+
+@media (max-width: 650px) {
+  .pet-planner-page {
+    padding: 40px 16px 70px;
+  }
+
+  .pet-selection-card,
+  .pet-food-card {
+    padding: 22px 18px;
+  }
+
+  .pet-slot {
+    grid-template-columns: 1fr 38px;
+  }
+
+  .pet-slot label {
+    grid-column: 1 / -1;
+  }
+
+  .pet-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .food-list {
+    grid-template-columns: 1fr;
+  }
+
+  .food-status {
+    font-size: 10px;
+  }
+}

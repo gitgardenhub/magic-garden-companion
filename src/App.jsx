@@ -2,6 +2,9 @@ import { useState } from 'react'
 import './App.css'
 import CropDatabase from './CropDatabase'
 import CropCalculator from './CropCalculator'
+import PetFeedingPlanner from './PetFeedingPlanner'
+import PetAbilities from './PetAbilities'
+
 function App() {
   const [currentPage, setCurrentPage] = useState('home')
 
@@ -15,13 +18,13 @@ function App() {
         >
           🌸 Magic Garden Companion
         </div>
-<button
-  className="home-button"
-  onClick={() => setCurrentPage('home')}
->
-  🏡 Home
-</button>
-       
+
+        <button
+          className="home-button"
+          onClick={() => setCurrentPage('home')}
+        >
+          🏡 Home
+        </button>
       </header>
 
       {currentPage === 'home' && (
@@ -41,36 +44,52 @@ function App() {
             </p>
 
             <div className="hero-buttons">
-  <button
-    className="primary-button"
-    onClick={() => setCurrentPage('database')}
-  >
-    🌱 Crop Database
-  </button>
+              <button
+                className="primary-button"
+                onClick={() => setCurrentPage('database')}
+              >
+                🌱 Crop Database
+              </button>
 
-  <button
-    className="primary-button"
-    onClick={() => setCurrentPage('calculator')}
-  >
-    💰 Value Calculator
-  </button>
+              <button
+                className="primary-button"
+                onClick={() => setCurrentPage('calculator')}
+              >
+                💰 Value Calculator
+              </button>
 
-  <button
-    className="primary-button"
-    onClick={() => setCurrentPage('planner')}
-  >
-    🌷 Garden Planner — Coming Soon
-  </button>
-</div>
+              <button
+                className="primary-button"
+                onClick={() => setCurrentPage('petfood')}
+              >
+                🐾 What Pet Food Do I Need?
+              </button>
+
+              <button
+                className="primary-button"
+                onClick={() => setCurrentPage('abilities')}
+              >
+                ✨ Pet Abilities
+              </button>
+
+              <button
+                className="primary-button"
+                onClick={() => setCurrentPage('planner')}
+              >
+                🌷 Garden Planner — Coming Soon
+              </button>
+            </div>
           </section>
-
-          
         </main>
       )}
 
       {currentPage === 'database' && <CropDatabase />}
 
-     {currentPage === 'calculator' && <CropCalculator />}
+      {currentPage === 'calculator' && <CropCalculator />}
+
+      {currentPage === 'petfood' && <PetFeedingPlanner />}
+
+      {currentPage === 'abilities' && <PetAbilities />}
 
       {currentPage === 'planner' && (
         <h2 style={{ textAlign: 'center', padding: '100px' }}>
